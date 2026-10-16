@@ -7,6 +7,7 @@ export const getMe = () => api.get('/auth/me');
 
 // Products
 export const getProducts = (params) => api.get('/products', { params });
+export const getAdminProducts = (params) => api.get('/products', { params: { ...params, showAll: true } });
 export const getProduct = (id) => api.get(`/products/${id}`);
 export const getCategories = () => api.get('/products/categories');
 export const getBrands = (params) => api.get('/products/brands', { params });

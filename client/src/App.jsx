@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { ProtectedRoute, AdminRoute, GuestRoute } from './components/common/RouteGuards';
+import './App.css';
 
 // Layouts
 import Navbar from './components/common/Navbar';

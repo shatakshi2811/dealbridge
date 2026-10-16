@@ -16,7 +16,10 @@ exports.getProducts = async (req, res, next) => {
       limit = 12,
     } = req.query;
 
-    const query = { isActive: true };
+    // Admins can see inactive products via ?showAll=true
+    const isAdmin = req.user?.role === 'admin';
+    const showAll = isAdmin && req.query.showAll === 'true';
+    const query = showAll ? {} : { isActive: true };
 
     // Full-text search
     if (search) {

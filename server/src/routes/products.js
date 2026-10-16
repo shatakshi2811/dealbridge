@@ -13,7 +13,7 @@ const {
   getOffersByProduct,
   createOffer,
 } = require('../controllers/offerController');
-const { protect } = require('../middleware/auth');
+const { protect, optionalAuth } = require('../middleware/auth');
 const adminOnly = require('../middleware/adminOnly');
 
 const router = express.Router();
@@ -40,7 +40,7 @@ const offerValidation = [
 // Public routes
 router.get('/categories', getCategories);
 router.get('/brands', getBrands);
-router.get('/', getProducts);
+router.get('/', optionalAuth, getProducts);
 router.get('/:id', getProduct);
 router.get('/:productId/offers', getOffersByProduct);
 
