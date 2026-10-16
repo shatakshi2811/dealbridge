@@ -1,0 +1,66 @@
+name: DealBridge CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  # ── Backend syntax + startup check ─────────────────────────────────────────
+  backend:
+    name: Backend — Syntax & Module Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Syntax check — all source files
+        run: |
+          find src scripts -name "*.js" | xargs -I{} node --check {}
+          node --check server.js
+          echo "✅ All backend files pass syntax check"
+
+  # ── Frontend build check ────────────────────────────────────────────────────
+  frontend:
+    name: Frontend — Vite Production Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: https://placeholder.onrender.com
+
+      - name: Verify build output
+        run: |
+          ls dist/
+          echo "✅ Frontend build successful"

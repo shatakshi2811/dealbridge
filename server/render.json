@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm install",
+  "startCommand": "node server.js",
+  "envVars": [
+    { "key": "NODE_ENV",       "value": "production" },
+    { "key": "MONGODB_URI",    "generateValue": false },
+    { "key": "JWT_SECRET",     "generateValue": false },
+    { "key": "JWT_EXPIRES_IN", "value": "7d" },
+    { "key": "CLIENT_URL",     "generateValue": false }
+  ]
+}

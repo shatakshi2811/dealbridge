@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+// In production (Vercel), VITE_API_URL points to the Render backend.
+// In development, empty string means the Vite proxy handles /api/* → localhost:5000
+const baseURL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -22,7 +28,6 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      // Redirect only if not already on auth pages
       if (!window.location.pathname.startsWith('/login')) {
         window.location.href = '/login';
       }

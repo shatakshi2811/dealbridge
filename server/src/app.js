@@ -17,10 +17,15 @@ const app = express();
 app.set('trust proxy', 1);
 
 // ─── CORS ──────────────────────────────────────────────────────────────────
+// CLIENT_URL can be a comma-separated list of allowed origins
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:3000',
-  'http://localhost:5173', // Vite dev server
-];
+  ...( process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(',').map((s) => s.trim())
+    : []
+  ),
+  'http://localhost:3000',
+  'http://localhost:5173',
+].filter(Boolean);
 
 app.use(
   cors({
