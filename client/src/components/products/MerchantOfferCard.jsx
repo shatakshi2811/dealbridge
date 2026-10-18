@@ -25,7 +25,8 @@ export default function MerchantOfferCard({ offer, isLowest }) {
 
   const handleClick = () => {
     // The backend /api/redirect/:id handles click tracking + redirect
-    window.open(`/api/redirect/${offer._id}`, '_blank', 'noopener,noreferrer');
+    const apiUrl = import.meta.env.VITE_API_URL || '';
+    window.open(`${apiUrl}/api/redirect/${offer._id}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
