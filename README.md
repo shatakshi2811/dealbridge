@@ -4,8 +4,8 @@ A full-stack MERN application that allows users to browse products, compare merc
 
 ## 🚀 Live Demo
 
-- **Frontend**: _Coming soon (deployed on Vercel)_
-- **Backend API**: _Coming soon (deployed on Render)_
+- **Frontend**: https://dealbridge-beta.vercel.app
+- **Backend API**: https://dealbridge-api.onrender.com
 
 ### Demo Credentials
 
